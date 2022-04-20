@@ -22,6 +22,38 @@ public class Complaint {
 		}
 		return con;
 	}
+	
+	public String insertComplaint(String PerName, String PerNIC, String cArea, String cAccNo, String cAddress, String cEmal, String Comp) {
+		String output = "";
+		try {
+			Connection con = connect();
+			if (con == null) {
+				return "Error while connecting to the database for inserting.";
+			}
+			// create a prepared statement
+			String query = " insert into complaint(`cID`, `PerName`, `PerNIC`, `cArea`, `cAccNo`, `cAddress`, `cEmal`, `Comp`)" + " values ( ?, ?, ?, ?, ?, ?, ?, ?)";
+			PreparedStatement preparedStmt = con.prepareStatement(query);
+			// binding values
+			preparedStmt.setInt(1, 0);
+			preparedStmt.setString(2, PerName);
+			preparedStmt.setString(3, PerNIC);
+			preparedStmt.setString(4, cArea);
+			preparedStmt.setString(5, cAccNo);
+			preparedStmt.setString(6, cAddress);
+			preparedStmt.setString(7, cEmal);
+			preparedStmt.setString(8, Comp);
+
+			// execute the statement
+			preparedStmt.execute();
+			con.close();
+			output = "Inserted successfully";
+		} catch (Exception e) {
+			output = "Error while inserting the complaint.";
+			System.err.println(e.getMessage());
+		}
+		return output;
+	}
+
 
 	
 
