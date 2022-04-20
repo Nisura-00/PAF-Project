@@ -22,5 +22,19 @@ public class ServiceConsumption {
 	}
 
 	
-	
+	@POST
+	@Path("/")
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Produces(MediaType.TEXT_PLAIN)
+	public String insertConsumption(@FormParam("Cname") String Cname, 
+			@FormParam("Caddress") String Caddress,
+			@FormParam("AccNo") String AccNo,
+			@FormParam("Cdate") String Cdate,
+			@FormParam("UnitNo") String UnitNo,
+			@FormParam("PriceUnit") String PriceUnit,
+			@FormParam("TotalAmount") String TotalAmount) {
+		String output = ConsumptionObj.insertConsumption(Cname, Caddress, AccNo, Cdate, UnitNo, PriceUnit,TotalAmount);
+		return output;
+
+	}
 }
