@@ -22,6 +22,39 @@ public class Consumption {
 		}
 		return con;
 	}
+	
+	public String insertConsumption(String Cname, String Caddress, String AccNo, String Cdate, String UnitNo, String PriceUnit, String TotalAmount) {
+		String output = "";
+		try {
+			Connection con = connect();
+			if (con == null) {
+				return "Error while connecting to the database for inserting.";
+			}
+			// create a prepared statement
+			String query = " insert into consumpation(`Cid`, `Cname`, `Caddress`, `AccNo`, `Cdate`, `UnitNo`, `PriceUnit`, `TotalAmount`)" + " values ( ?, ?, ?, ?, ?, ?, ?, ?)";
+			PreparedStatement preparedStmt = con.prepareStatement(query);
+			// binding values
+			preparedStmt.setInt(1, 0);
+			preparedStmt.setString(2, Cname);
+			preparedStmt.setString(3, Caddress);
+			preparedStmt.setString(4, AccNo);
+			preparedStmt.setString(5, Cdate);
+			preparedStmt.setString(6, UnitNo);
+			preparedStmt.setString(7, PriceUnit);
+			preparedStmt.setString(8, TotalAmount);
+
+			// execute the statement
+			preparedStmt.execute();
+			con.close();
+			output = "Inserted successfully";
+		} catch (Exception e) {
+			output = "Error while inserting the consumpation.";
+			System.err.println(e.getMessage());
+		}
+		return output;
+	}
+
+	
 
 	
 	
