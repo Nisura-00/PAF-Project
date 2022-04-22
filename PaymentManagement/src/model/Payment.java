@@ -103,6 +103,46 @@ public class Payment {
 			output = "Error while reading the payment.";
 			System.err.println(e.getMessage());
 		}
+		return output;	
+	}
+		
+	//updating items
+	public String updatePayment(String paymentID, String paymentCode, String cardHolder, String cardNo, String cvv, String amount)
+
+	{
+		String output = "";
+		
+		
+		try {
+			Connection con = connect();
+			if (con == null) {
+				return "Error while connecting to the database for updating.";
+			}
+			// create a prepared statement
+			String query = "UPDATE payment SET paymentCode=?,cardHolder=?,cardNo=?,cvv=?, amount=? WHERE paymentID=?";
+			
+			PreparedStatement preparedStmt = con.prepareStatement(query);
+			// binding values
+			preparedStmt.setString(1, paymentCode);
+			preparedStmt.setString(2, cardHolder);
+			preparedStmt.setString(3, cardNo);
+			preparedStmt.setString(4, cvv);
+			preparedStmt.setDouble(5, Double.parseDouble(amount));
+			preparedStmt.setInt(6, Integer.parseInt(paymentID));
+			// execute the statement
+			 preparedStmt.execute();
+			con.close();
+			
+			output = "Payment updated successfully";
+			
+			
+		} catch (Exception e) {
+			
+			output = "Error while updating the payment.";
+			System.err.println(e.getMessage());
+			
+		}
 		return output;
 	}
+		
 }

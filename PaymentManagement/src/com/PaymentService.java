@@ -6,6 +6,13 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType; 
 //For JSON
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.parser.Parser;
+
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 
 
 @Path("/Payments")
@@ -31,5 +38,31 @@ public class PaymentService {
 			String output = itemObj.insertPayment(paymentCode, cardHolder, cardNo, cvv, amount);
 			return output;
 		}
+		
+		// API for update items
+		@PUT
+		@Path("/")
+		@Consumes(MediaType.APPLICATION_JSON)
+		@Produces(MediaType.TEXT_PLAIN)
+
+		public String updatePayment(String itemData) {
+			// Convert the input string to a JSON object
+			JsonObject itemObject = new JsonParser().parse(itemData).getAsJsonObject();
+			// Read the values from the JSON object
+			String paymentID = itemObject.get("paymentID").getAsString();
+			String paymentCode = itemObject.get("paymentCode").getAsString();
+			String cardHolder = itemObject.get("cardHolder").getAsString();
+			String cardNo = itemObject.get("cardNo").getAsString();
+			String cvv = itemObject.get("cvv").getAsString();
+			String amount = itemObject.get("amount").getAsString();
+
+			String output = itemObj.updatePayment(paymentID, paymentCode, cardHolder, cardNo, cvv, amount);
+			
+			
+			return output;
+		}
+		
+
+		
 }
 
