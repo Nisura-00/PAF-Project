@@ -49,7 +49,7 @@ public class Notifications {
 	 }
 	 catch (Exception e)
 	 {
-	 output = "Error while inserting the item.";
+	 output = "Error while inserting.";
 	 System.err.println(e.getMessage());
 	 }
 	 return output;
@@ -64,9 +64,9 @@ public class Notifications {
 	 if (con == null)
 	 {return "Error while connecting to the database for reading."; }
 	 // Prepare the html table to be displayed
-	 output = "<table border='1'><tr><th>notification Code</th><th>message</th>" +
-	 "<th>date</th>" +
-	 "<th>timePeriod</th>" + "<th>area</th>" + "<th>establishedBy</th>" +
+	 output = "<table border='1'><tr><th>Notification Code</th><th>Message</th>" +
+	 "<th>Date</th>" +
+	 "<th>Time Period</th>" + "<th>Area</th>" + "<th>Established By</th>" +
 	 "<th>Update</th><th>Remove</th></tr>";
 
 	 String query = "select * from interruption";
