@@ -27,7 +27,7 @@ public class PaymentService {
 		return itemObj.readPayment();
 	}
 	
-	// insert items API
+	// insert payment API
 		@POST
 		@Path("/")
 		@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
@@ -39,7 +39,7 @@ public class PaymentService {
 			return output;
 		}
 		
-		// API for update items
+		// API for update payment
 		@PUT
 		@Path("/")
 		@Consumes(MediaType.APPLICATION_JSON)
