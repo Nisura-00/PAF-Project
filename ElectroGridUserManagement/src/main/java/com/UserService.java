@@ -27,4 +27,21 @@ public class UserService
          }
          
          
+
+
+@POST
+@Path("/")
+@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+@Produces(MediaType.TEXT_PLAIN)
+public String insertUser(@FormParam("name") String name,
+                    @FormParam("phoneNum") String phoneNum,
+                    @FormParam("email") String email,
+                    @FormParam("userName") String userName,
+                    @FormParam("password") String password)
+                    
+{
+String output = userObj.insertUser(name, phoneNum, email, userName,password);
+return output;
+}
+
 }
