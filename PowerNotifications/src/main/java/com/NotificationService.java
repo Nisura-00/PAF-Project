@@ -26,4 +26,28 @@ public class NotificationService {
 		return output;
 	}
 
+
+	//API for update items
+	@PUT
+	@Path("/")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_PLAIN)
+
+	public String updateItems(String itemData) {
+		// Convert the input string to a JSON object
+		JsonObject itemObject = new JsonParser().parse(itemData).getAsJsonObject();
+		
+		// Read the values from the JSON object
+		String notificationId = itemObject.get("notificationId").getAsString();
+		String notificationCode = itemObject.get("notificationCode").getAsString();
+		String message = itemObject.get("message").getAsString();
+		String date = itemObject.get("date").getAsString();
+		String timePeriod = itemObject.get("timePeriod").getAsString();
+		String area = itemObject.get("area").getAsString();
+		String establishedBy = itemObject.get("establishedBy").getAsString();
+
+		String output = itemObj.updateItem(notificationId, notificationCode, message, date, timePeriod, area, establishedBy);
+		
+		return output;
+	}
 }
