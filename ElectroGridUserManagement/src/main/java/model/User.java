@@ -22,6 +22,44 @@ public Connection connect()
 return con;
 }
 
+//Insert
+public String insertUser(String Name, String phone, String Email, String UserN,String Password)
+{
+String output = "";
+try
+{
+    Connection con = connect();
+    if (con == null)
+    {
+      return "Error while connecting to the database";
+    }
+    
+    // create a prepared statement
+    String query = " insert into users (`userID`,`name`,`phoneNum`,`email`,`userName`,`password`)"
+   		  + " values ( ?, ?, ?, ?, ?,?)";
+    PreparedStatement preparedStmt = con.prepareStatement(query);
+    
+    // binding values
+    preparedStmt.setInt(1, 0);
+    preparedStmt.setString(2, Name);
+    preparedStmt.setInt(3, Integer.parseInt(phone));
+    preparedStmt.setString(4, Email);
+    preparedStmt.setString(5, UserN);
+    preparedStmt.setString(6, Password);
+   
+    //execute the statement
+    preparedStmt.execute();
+    con.close();
+    
+    output = "Inserted successfully";
+ }
+ catch (Exception e)
+ {
+    output = "Error while inserting";
+    System.err.println(e.getMessage());
+ }
+    return output;
+    }
 
 //read
 public String readItems()
