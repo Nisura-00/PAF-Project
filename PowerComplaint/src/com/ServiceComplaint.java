@@ -35,6 +35,29 @@ public class ServiceComplaint {
 		return output;
 
 	}
+	
+	@PUT
+	@Path("/")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_PLAIN)
+
+	public String updateComplaint(String complaintData) {
+		// Convert the input string to a JSON object
+		JsonObject ProObject = new JsonParser().parse(complaintData).getAsJsonObject();
+
+		// Read the values from the JSON object
+		String cID = ProObject.get("cID").getAsString();
+		String PerName = ProObject.get("PerName").getAsString();
+		String PerNIC = ProObject.get("PerNIC").getAsString();
+		String cArea = ProObject.get("cArea").getAsString();
+		String cAccNo = ProObject.get("cAccNo").getAsString();
+		String cAddress = ProObject.get("cAddress").getAsString();
+		String cEmal = ProObject.get("cEmal").getAsString();
+		String Comp = ProObject.get("Comp").getAsString();
+
+		String output = ComplaintObj.updateComplaint(cID, PerName, PerNIC, cArea, cAccNo, cAddress, cEmal, Comp);
+		return output;
+	}
 
 	
 	
