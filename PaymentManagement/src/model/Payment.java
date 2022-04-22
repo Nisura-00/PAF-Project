@@ -56,7 +56,7 @@ public class Payment {
 	}
 	
 	
-	//reading items
+	//reading payments
 	public String readPayment() {
 		String output = "";
 		try {
@@ -106,7 +106,7 @@ public class Payment {
 		return output;	
 	}
 		
-	//updating items
+	//updating payments
 	public String updatePayment(String paymentID, String paymentCode, String cardHolder, String cardNo, String cvv, String amount)
 
 	{
