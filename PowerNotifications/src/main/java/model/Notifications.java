@@ -125,7 +125,7 @@ public class Notifications {
 			 // binding values
 			 preparedStmt.setString(1, notificationCode);
 			 preparedStmt.setString(2, message);
-			 preparedStmt.setString(2, date);
+			 preparedStmt.setString(3, date);
 			 preparedStmt.setString(4, timePeriod);
 			 preparedStmt.setString(5, area);
 			 preparedStmt.setString(6, establishedBy);
@@ -141,5 +141,30 @@ public class Notifications {
 		 	}
 		 return output;
 	}
-
+	
+	public String deleteItem(String notificationId)
+	 {
+	 String output = "";
+	 try
+	 {
+	 Connection con = connect();
+	 if (con == null)
+	 {return "Error while connecting to the database for deleting."; }
+	 // create a prepared statement
+	 String query = "delete from interruption where notificationId=?";
+	 PreparedStatement preparedStmt = con.prepareStatement(query);
+	 // binding values
+	 preparedStmt.setInt(1, Integer.parseInt(notificationId));
+	 // execute the statement
+	 preparedStmt.execute();
+	 con.close();
+	 output = "Deleted successfully";
+	 }
+	 catch (Exception e)
+	 {
+	 output = "Error while deleting the item.";
+	 System.err.println(e.getMessage());
+	 }
+	 return output;
+	 }
 }
