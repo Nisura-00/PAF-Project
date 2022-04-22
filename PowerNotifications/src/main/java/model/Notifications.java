@@ -95,7 +95,7 @@ public class Notifications {
 	 
 	 // buttons
 	 output += "<td><input name='btnUpdate' type='button' value='Update' class='btn btn-secondary'></td>"
-	 + "<td><form method='post' action='#'>"
+	 + "<td><form method='post'>"
 	 + "<input name='btnRemove' type='submit' value='Remove' class='btn btn-danger'>"
 	 + "<input name='notificationId' type='hidden' value='" + notificationId
 	 + "'>" + "</form></td></tr>";
@@ -112,5 +112,34 @@ public class Notifications {
 	 return output;
 	 } 
 	
+	public String updateItem(String notificationId, String notificationCode, String message, String date, String timePeriod, String area, String establishedBy)
+	{
+		String output = "";
+		 try{
+		 Connection con = connect();
+			 if (con == null)
+			 {return "Error while connecting to the database for updating."; }
+			 // create a prepared statement
+			 String query = "UPDATE interruption SET notificationCode=?, message=?, date=?, timePeriod=?, area=?, establishedBy=? WHERE notificationId=?";
+			 PreparedStatement preparedStmt = con.prepareStatement(query);
+			 // binding values
+			 preparedStmt.setString(1, notificationCode);
+			 preparedStmt.setString(2, message);
+			 preparedStmt.setString(2, date);
+			 preparedStmt.setString(4, timePeriod);
+			 preparedStmt.setString(5, area);
+			 preparedStmt.setString(6, establishedBy);
+			 preparedStmt.setInt(7, Integer.parseInt(notificationId));
+			 
+			 // execute the statement
+			 preparedStmt.execute();
+			 con.close();
+			 output = "Updated successfully";
+		 }catch (Exception e){
+			 output = "Error while updating the item.";
+			 System.err.println(e.getMessage());
+		 	}
+		 return output;
+	}
 
 }
