@@ -19,7 +19,7 @@ public class Payment {
 		return con;
 	}
 	
-	public String insertPayment(String paymentCode, String cardHolder, String cardNo, String cvv, String amount) {
+	public String insertPayment(String billID, String cardHolder, String cardNo, String cvv, String amount) {
 		String output = "";
 		try {
 			Connection con = connect();
@@ -29,14 +29,14 @@ public class Payment {
 			
 			
 			// create a prepared statement
-			String query = " insert into payment( paymentID, paymentCode, cardHolder, cardNo, cvv, amount)"
+			String query = " insert into payment( paymentID, billID, cardHolder, cardNo, cvv, amount)"
 					+ " values( ?, ?, ?, ?, ?,?)";
 			PreparedStatement preparedStmt = con.prepareStatement(query);
 			
 			
 			// binding values
 			preparedStmt.setInt(1, 0);
-			preparedStmt.setString(2, paymentCode);
+			preparedStmt.setString(2, billID);
 			preparedStmt.setString(3, cardHolder);
 			preparedStmt.setInt(4, Integer.parseInt(cardNo));
 			preparedStmt.setInt(5, Integer.parseInt(cvv));
@@ -67,7 +67,7 @@ public class Payment {
 			
 			
 			// Prepare the html table to be displayed
-			output = "<table border='1'><tr><th>Payment Code</th><th>Card Holder's Name</th>" + "<th>Card No</th>"
+			output = "<table border='1'><tr><th>Bill ID</th><th>Card Holder's Name</th>" + "<th>Card No</th>"
 					+ "<th>CVV</th>" + "<th>Amount</th>"+"<th>Update</th><th>Remove</th></tr>";
 
 			String query = "select * from payment";
@@ -78,14 +78,14 @@ public class Payment {
 			// iterate through the rows in the result set
 			while (rs.next()) {
 				String paymentID = Integer.toString(rs.getInt("paymentID"));
-				String paymentCode = rs.getString("paymentCode");
+				String billID = rs.getString("billID");
 				String cardHolder = rs.getString("cardHolder");
 				String cardNo = rs.getString("cardNo");
 				String cvv = rs.getString("cvv");
 				String amount = Double.toString(rs.getDouble("amount"));
 				
 				// Add into the html table
-				output += "<tr><td>" + paymentCode + "</td>";
+				output += "<tr><td>" + billID + "</td>";
 				output += "<td>" + cardHolder + "</td>";
 				output += "<td>" + cardNo + "</td>";
 				output += "<td>" + cvv + "</td>";
@@ -107,7 +107,7 @@ public class Payment {
 	}
 		
 	//updating payments
-	public String updatePayment(String paymentID, String paymentCode, String cardHolder, String cardNo, String cvv, String amount)
+	public String updatePayment(String paymentID, String billID, String cardHolder, String cardNo, String cvv, String amount)
 
 	{
 		String output = "";
@@ -119,11 +119,11 @@ public class Payment {
 				return "Error while connecting to the database for updating.";
 			}
 			// create a prepared statement
-			String query = "UPDATE payment SET paymentCode=?,cardHolder=?,cardNo=?,cvv=?, amount=? WHERE paymentID=?";
+			String query = "UPDATE payment SET billID=?,cardHolder=?,cardNo=?,cvv=?, amount=? WHERE paymentID=?";
 			
 			PreparedStatement preparedStmt = con.prepareStatement(query);
 			// binding values
-			preparedStmt.setString(1, paymentCode);
+			preparedStmt.setString(1, billID);
 			preparedStmt.setString(2, cardHolder);
 			preparedStmt.setString(3, cardNo);
 			preparedStmt.setString(4, cvv);

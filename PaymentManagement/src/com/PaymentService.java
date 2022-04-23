@@ -33,9 +33,9 @@ public class PaymentService {
 		@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 		@Produces(MediaType.TEXT_PLAIN)
 
-		public String insertPayment(@FormParam("paymentCode") String paymentCode, @FormParam("cardHolder") String cardHolder,
+		public String insertPayment(@FormParam("billID") String billID, @FormParam("cardHolder") String cardHolder,
 				@FormParam("cardNo") String cardNo, @FormParam("cvv") String cvv, @FormParam("amount") String amount) {
-			String output = itemObj.insertPayment(paymentCode, cardHolder, cardNo, cvv, amount);
+			String output = itemObj.insertPayment(billID, cardHolder, cardNo, cvv, amount);
 			return output;
 		}
 		
@@ -50,13 +50,13 @@ public class PaymentService {
 			JsonObject itemObject = new JsonParser().parse(itemData).getAsJsonObject();
 			// Read the values from the JSON object
 			String paymentID = itemObject.get("paymentID").getAsString();
-			String paymentCode = itemObject.get("paymentCode").getAsString();
+			String billID = itemObject.get("billID").getAsString();
 			String cardHolder = itemObject.get("cardHolder").getAsString();
 			String cardNo = itemObject.get("cardNo").getAsString();
 			String cvv = itemObject.get("cvv").getAsString();
 			String amount = itemObject.get("amount").getAsString();
 
-			String output = itemObj.updatePayment(paymentID, paymentCode, cardHolder, cardNo, cvv, amount);
+			String output = itemObj.updatePayment(paymentID, billID, cardHolder, cardNo, cvv, amount);
 			
 			
 			return output;
