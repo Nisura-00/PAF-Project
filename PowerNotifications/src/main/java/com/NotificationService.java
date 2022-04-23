@@ -50,4 +50,26 @@ public class NotificationService {
 		
 		return output;
 	}
+
+
+	//API for Delete Items
+		@DELETE
+		@Path("/")
+		@Consumes(MediaType.APPLICATION_XML)
+		@Produces(MediaType.TEXT_PLAIN)
+		
+		public String deleteItems(String itemData)
+		{
+			//Convert the input string to an XML document
+			 Document doc = Jsoup.parse(itemData, "", Parser.xmlParser()); 
+			 
+			//Read the value from the element <itemID>
+			 String notificationId = doc.select("notificationId").text(); 
+			
+			 String output = itemObj.deleteItem(notificationId); 
+			
+			 return output; 
+			
+			
+		}
 }
