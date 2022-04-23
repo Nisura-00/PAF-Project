@@ -195,6 +195,44 @@ public class UnitManagementServiceDAO {
         return response;
     }
 
+    public Unit getUnitDetailsById(int id) {
+
+        Unit unit = null;
+
+        try {
+            Connection conn = DBUtil.connect();
+
+            if (conn != null) {
+
+                String query = "SELECT * FROM unit_prices WHERE id = ?";
+
+                PreparedStatement stmt = conn.prepareStatement(query);
+                stmt.setInt(1, id);
+
+                ResultSet rs = stmt.executeQuery();
+
+
+                while (rs.next()) {
+                    unit = new Unit();
+
+                    unit.setId(rs.getInt("id"));
+                    unit.setMinUnitValue(rs.getInt("minUnitValue"));
+                    unit.setMaxUnitValue(rs.getInt("maxUnitValue"));
+                    unit.setUnitPrice(rs.getFloat("unitPrice"));
+                    unit.setInsertDate(rs.getDate("insertDate"));
+                    unit.setModifiedDate(rs.getDate("modifiedDate"));
+
+                }
+
+            }
+
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
+
+        return unit;
+    }
+
     private boolean recordExist(int id) {
 
         boolean flag = false;
