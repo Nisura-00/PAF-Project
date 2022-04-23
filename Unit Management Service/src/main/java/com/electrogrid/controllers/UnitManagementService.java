@@ -6,6 +6,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
+
 /**
  * Created By Rashani
  * Date: 4/18/2022
@@ -14,8 +15,8 @@ import java.util.List;
 @Path("")
 public class UnitManagementService {
 
-	private final UnitManagementServiceDAO unitMgmt = new UnitManagementServiceDAO();
-//
+    private final UnitManagementServiceDAO unitMgmt = new UnitManagementServiceDAO();
+
 //    @Path("/test")
 //    @GET
 //    public Response testConnection() {
@@ -52,6 +53,13 @@ public class UnitManagementService {
     @Produces(MediaType.APPLICATION_JSON)
     public List<Unit> listUnits() {
         return unitMgmt.listUnits();
+    }
+
+    @Path("/units/{id}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Unit getUnitDetailsById(@PathParam("id") int id) {
+        return unitMgmt.getUnitDetailsById(id);
     }
 
     @Path("/update")
