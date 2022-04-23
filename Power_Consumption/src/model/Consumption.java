@@ -22,7 +22,7 @@ public class Consumption {
 		}
 		return con;
 	}
-	
+
 	public String insertConsumption(String Cname, String Caddress, String AccNo, String Cdate, String UnitNo, String PriceUnit, String TotalAmount) {
 		String output = "";
 		try {
@@ -54,9 +54,6 @@ public class Consumption {
 		return output;
 	}
 
-	
-
-	
 	
 	public String readConsumption() {
 		String output = "";
@@ -98,6 +95,46 @@ public class Consumption {
 			output = "Error while reading the consumpation.";
 			System.err.println(e.getMessage());
 		}
+		return output;
+	}
+
+	
+	public String updateConsumption(String Cid, String Cname, String Caddress, String AccNo, String Cdate, String UnitNo, String PriceUnit, String TotalAmount) {
+		String output = "";
+
+		try {
+			Connection con = connect();
+
+			if (con == null) {
+				return "Error while connecting to the database for updating.";
+			}
+
+			// create a prepared statement
+			String query = "UPDATE consumpation SET Cname=?,Caddress=?,AccNo=?,Cdate=?,UnitNo=?,PriceUnit=?,TotalAmount=? WHERE Cid=?";
+
+			PreparedStatement preparedStmt = con.prepareStatement(query);
+
+			// binding values
+
+			preparedStmt.setString(1, Cname);
+			preparedStmt.setString(2, Caddress);
+			preparedStmt.setString(3, AccNo);
+			preparedStmt.setString(4, Cdate);
+			preparedStmt.setString(5, UnitNo);
+			preparedStmt.setString(6, PriceUnit);
+			preparedStmt.setString(7, TotalAmount);
+			preparedStmt.setInt(8, Integer.parseInt(Cid));
+
+			// execute the statement
+			preparedStmt.execute();
+			con.close();
+
+			output = "Updated successfully";
+		} catch (Exception e) {
+			output = "Error while updating the consumpation.";
+			System.err.println(e.getMessage());
+		}
+
 		return output;
 	}
 
