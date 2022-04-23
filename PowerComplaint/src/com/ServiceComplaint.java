@@ -58,6 +58,21 @@ public class ServiceComplaint {
 		String output = ComplaintObj.updateComplaint(cID, PerName, PerNIC, cArea, cAccNo, cAddress, cEmal, Comp);
 		return output;
 	}
+	
+
+	@DELETE
+	@Path("/")
+	@Consumes(MediaType.APPLICATION_XML)
+	@Produces(MediaType.TEXT_PLAIN)
+	public String deleteComplaint(String complaintData) {
+		// Convert the input string to an XML document
+		Document doc = Jsoup.parse(complaintData, "", Parser.xmlParser());
+
+		// Read the value from the element <Cid>
+		String cID = doc.select("cID").text();
+		String output = ComplaintObj.deleteComplaint(cID);
+		return output;
+	}
 
 	
 	
