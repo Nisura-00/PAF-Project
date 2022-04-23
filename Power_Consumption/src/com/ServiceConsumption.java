@@ -37,4 +37,30 @@ public class ServiceConsumption {
 		return output;
 
 	}
+
+	
+	@PUT
+	@Path("/")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_PLAIN)
+
+	public String updateConsumption(String consumpationData) {
+		// Convert the input string to a JSON object
+		JsonObject ProObject = new JsonParser().parse(consumpationData).getAsJsonObject();
+
+		// Read the values from the JSON object
+		String Cid = ProObject.get("Cid").getAsString();
+		String Cname = ProObject.get("Cname").getAsString();
+		String Caddress = ProObject.get("Caddress").getAsString();
+		String AccNo = ProObject.get("AccNo").getAsString();
+		String Cdate = ProObject.get("Cdate").getAsString();
+		String UnitNo = ProObject.get("UnitNo").getAsString();
+		String PriceUnit = ProObject.get("PriceUnit").getAsString();
+		String TotalAmount = ProObject.get("TotalAmount").getAsString();
+
+		String output = ConsumptionObj.updateConsumption(Cid, Cname, Caddress, AccNo, Cdate, UnitNo, PriceUnit, TotalAmount);
+		return output;
+	}
+
+	
 }
