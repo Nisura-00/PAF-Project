@@ -66,7 +66,7 @@ public class Complaint {
 				return "Error while connecting to the database for reading.";
 			}
 			// Prepare the html table to be displayed
-			output = "<table border=\"1\"><tr><th>Complaint ID</th><th>Person Name</th><th>Complaint NIC</th><th>Area</th><th>Account No</th><th>Address</th><th>Email</th><th>Complaint</th></tr>";
+			output = "<table border=\"1\"><tr><th>Complaint ID</th><th>Person Name</th><th>Person NIC</th><th>Area</th><th>Account No</th><th>Address</th><th>Email</th><th>Complaint</th></tr>";
 			String query = "select * from complaint";
 			Statement stmt = (Statement) con.createStatement();
 			ResultSet rs = ((java.sql.Statement) stmt).executeQuery(query);
