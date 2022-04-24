@@ -118,4 +118,38 @@ public String readItems()
         }
         return output;
 }
+//Update
+public String updateUser(String ID, String name, String phone, String Email, String UserN,String Password)
+{ 
+	 String output = ""; 
+	 try
+	 { 
+	 Connection con = connect(); 
+	 if (con == null) 
+	 {return "Error while connecting to the database for updating."; } 
+	 // create a prepared statement
+	
+	 String query = "UPDATE users SET name=?,phoneNum=?,email=?,userName=?,password=? WHERE userID=?"; 
+	 		        
+			         
+	 PreparedStatement preparedStmt = con.prepareStatement(query); 
+	 // binding values
+	 preparedStmt.setString(1, name); 
+	 preparedStmt.setInt(2,Integer.parseInt (phone)); 
+	 preparedStmt.setString(3,Email); 
+	 preparedStmt.setString(4, UserN); 
+	 preparedStmt.setString(5, Password); 
+	 preparedStmt.setInt(6,Integer.parseInt (ID));
+	 // execute the statement
+	 preparedStmt.execute(); 
+	 con.close(); 
+	 output = "Updated successfully"; 
+	 } 
+	 catch (Exception e) 
+	 { 
+	 output = "Error while updating the item."; 
+	 System.err.println(e.getMessage()); 
+	 } 
+	 return output; 
+	 } 
 }
