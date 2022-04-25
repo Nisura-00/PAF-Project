@@ -62,5 +62,17 @@ public class ServiceConsumption {
 		return output;
 	}
 
-	
+	@DELETE
+	@Path("/")
+	@Consumes(MediaType.APPLICATION_XML)
+	@Produces(MediaType.TEXT_PLAIN)
+	public String deleteConsumption(String consumpationData) {
+		// Convert the input string to an XML document
+		Document doc = Jsoup.parse(consumpationData, "", Parser.xmlParser());
+
+		// Read the value from the element <Cid>
+		String Cid = doc.select("Cid").text();
+		String output = ConsumptionObj.deleteConsumption(Cid);
+		return output;
+	}
 }
