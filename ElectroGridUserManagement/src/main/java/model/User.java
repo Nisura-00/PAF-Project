@@ -152,4 +152,33 @@ public String updateUser(String ID, String name, String phone, String Email, Str
 	 } 
 	 return output; 
 	 } 
+//delete
+public String deleteUser(String userID)
+{
+   String output = "";
+   try
+   {
+       Connection con = connect();
+       if (con == null)
+       {  
+               return "Error while connecting to the database for deleting.";
+       }
+       // create a prepared statement
+       String query = "delete from users where userID=?";
+       PreparedStatement preparedStmt = con.prepareStatement(query);
+       // binding values
+       preparedStmt.setInt(1, Integer.parseInt(userID));
+       // execute the statement
+       preparedStmt.execute();
+       con.close();
+       output = "Deleted successfully";
+    }
+    catch (Exception e)
+    {
+       output = "Error while deleting the user.";
+       System.err.println(e.getMessage());
+    }
+    return output;
+}
+
 }
